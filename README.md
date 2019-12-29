@@ -3,6 +3,8 @@ Console Pomodoro timer with playing the melody of the signal or with the
 generation of an end time signal. Displays a push notification on Linux and 
 Mac OS X. Pomodoro Technique - [see](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 
+![Peek 2019-12-29 23-57](https://user-images.githubusercontent.com/12321741/71562830-ff9a8880-2a96-11ea-954f-24b6de496a1f.gif)
+
 ## How to install:
 
 #### From PyPI:
