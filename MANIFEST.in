@@ -1,0 +1,17 @@
+include INSTALL
+include README
+include AUTHORS
+include CHANGELOG
+include LICENSE
+include CONTRIBUTING
+include requirements.txt
+include setup.py
+
+recursive-include pomodorotimer *
+
+exclude tic-tic.wav
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * empty
+recursive-exclude * img

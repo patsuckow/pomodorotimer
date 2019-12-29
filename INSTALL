@@ -1,0 +1,19 @@
+Installation
+============
+
+From PyPI
+------------
+
+    pip3 install pomodorotimer --user
+
+From sources
+------------
+
+Alternatively you can install **pomodorotimer** from sources directory:
+
+    git clone https://github.com/patsuckow/pomodorotimer
+    cd pomodorotimer
+    pip3 install -r requirements.txt
+    pip3 install . --user
+    cd ..
+    rm -rf pomodorotimer
