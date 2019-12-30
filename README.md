@@ -5,14 +5,17 @@ Mac OS X. Pomodoro Technique - [see](https://en.wikipedia.org/wiki/Pomodoro_Tech
 
 We call the program from any directory in the console and set the countdown 
 time:
+
 ![Peek 2019-12-29 23-57](https://user-images.githubusercontent.com/12321741/71562830-ff9a8880-2a96-11ea-954f-24b6de496a1f.gif)
 
 When the time ends, a sound signal will be played, push notification will be 
 displayed and it is proposed to enter a new countdown time:
+
 ![Peek 2019-12-30 21-44](https://user-images.githubusercontent.com/12321741/71595788-16e87d00-2b4e-11ea-94d5-8a27e91615c7.gif)
 
 The type of push notification depends on your OS and the type of graphical 
 shell used, for example:
+
 ![Peek 2019-12-30 22-35](https://user-images.githubusercontent.com/12321741/71597566-cde7f700-2b54-11ea-83a9-133cc737d32c.gif)
 ## How to install:
 
