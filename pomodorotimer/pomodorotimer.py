@@ -30,7 +30,7 @@ class PomodoroTimer:
     ALARM_FILENAME = os.path.realpath('.local/tic-tic.wav')
 
     def __init__(self) -> None:
-        mess = "Enter a time in minutes for your Pomodoro: "
+        mess = " Enter a time in minutes for your Pomodoro: "
         self.stack_watch = deque(list('🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦'))
         try:
             while True:
@@ -118,7 +118,3 @@ class PomodoroTimer:
             print(mes)
         else:
             print('\n', mes)
-
-
-if __name__ == "__main__":
-    PomodoroTimer()

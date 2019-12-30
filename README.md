@@ -5,6 +5,8 @@ Mac OS X. Pomodoro Technique - [see](https://en.wikipedia.org/wiki/Pomodoro_Tech
 
 ![Peek 2019-12-29 23-57](https://user-images.githubusercontent.com/12321741/71562830-ff9a8880-2a96-11ea-954f-24b6de496a1f.gif)
 
+![Peek 2019-12-30 21-44](https://user-images.githubusercontent.com/12321741/71595788-16e87d00-2b4e-11ea-94d5-8a27e91615c7.gif)
+
 ## How to install:
 
 #### From PyPI:
