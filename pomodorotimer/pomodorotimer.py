@@ -23,7 +23,7 @@ class PomodoroTimer:
 
     Pomodoro Technique - see: https://en.wikipedia.org/wiki/Pomodoro_Technique
     """
-    Объясняю
+
     # Why path to wav is '.local/tic-tic.wav' ? - since in setup.py with the
     # option data_files=['tic-tic.wav'] we set that the file must be sent
     # to .local/
