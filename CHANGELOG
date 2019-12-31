@@ -7,7 +7,7 @@ Versioning: 'major.minor.micro' (PEP 440)
 Development version
 ===================
 
-Version 0.1.1
+Version 0.1.2
 -------------
 
 - Updated ... ?
@@ -18,13 +18,23 @@ Version 0.1.1
 Current versions
 ================
 
-Version 0.1.0 (30.12.2019)
+Version 0.1.1 (31.12.2019)
 --------------------------
 
-+ First release. Basic functionality.
-
+- Updated: README
+- Changed:
+    In order to hide the output of debugging information of the audio
+    player, we will transfer the playback/generation code of the audio
+    to a separate file and we will call this script in the background.
+    Why so? - because standard output redirection does not work due to
+    the specifics of ffmpeg it self.
+    The process itself is needed to play the WAV file or the generated sound.
+- Fixed some bugs
 
 Older versions
 ==============
 
+Version 0.1.0 (30.12.2019)
+--------------------------
 
++ First release. Basic functionality.

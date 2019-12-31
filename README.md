@@ -1,7 +1,9 @@
 # pomodorotimer
 Console Pomodoro timer with playing the melody of the signal or with the 
 generation of an end time signal. Displays a push notification on Linux and 
-Mac OS X. Pomodoro Technique - [see](https://en.wikipedia.org/wiki/Pomodoro_Technique)
+Mac OS X.
+
+Pomodoro Technique - [see](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 
 We call the program from any directory in the console and set the countdown 
 time:

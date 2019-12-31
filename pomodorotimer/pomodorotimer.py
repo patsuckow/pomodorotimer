@@ -6,8 +6,6 @@ import sys
 import time
 import subprocess
 from collections import deque
-from pydub import AudioSegment, generators
-from pydub.playback import play
 
 try:
     assert sys.version_info >= (3, 6)
@@ -24,35 +22,24 @@ class PomodoroTimer:
     Pomodoro Technique - see: https://en.wikipedia.org/wiki/Pomodoro_Technique
     """
 
-    # Why path to wav is '.local/tic-tic.wav' ? - since in setup.py with the
-    # option data_files=['tic-tic.wav'] we set that the file must be sent
-    # to .local/
-    ALARM_FILENAME = os.path.realpath('.local/tic-tic.wav')
-
     def __init__(self) -> None:
+        # Clear console before setup Pomodoro timer
+        if sys.platform in ('linux', 'osx'):
+            subprocess.call('clear', shell=True)
+        elif sys.platform in ('nt', 'dos', 'ce'):
+            subprocess.call('cls', shell=True)
+
         mess = " Enter a time in minutes for your Pomodoro: "
         self.stack_watch = deque(list('🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦'))
+
         try:
             while True:
                 try:
-                    self.timer(int(input(mess)))
+                    self.pomodoro(int(input(mess)))
                 except ValueError:
                     print("Wrong input. Try again.")
         except KeyboardInterrupt:
-            print("\nPomodoro's timer work has been interrupted.")
-
-    @staticmethod
-    def default_sound() -> None:
-        """
-        It will be used when the wav file is not been found.
-        Default: Frequency 432 Hz, duration=864 milliseconds.
-        """
-        play(generators.Sine(432).to_audio_segment(duration=864))
-
-    @staticmethod
-    def wav_sound() -> None:
-        """Play wav file"""
-        play(AudioSegment.from_wav(PomodoroTimer.ALARM_FILENAME))
+            print("\n Pomodoro's timer work has been interrupted.")
 
     def reverse_timer(self, sec: int) -> None:
         """
@@ -91,30 +78,44 @@ class PomodoroTimer:
 
         return clock
 
-    def timer(self, minutes: int) -> None:
-        """Run reverse timer.
-
-        Setting the time for the Pomodoro timer.
-        Push-notifications on Linux desktop or console.
-        Play either mp3 file or generated sound.
-        Clear console before new setup Pomodoro timer.
-
-        Console cleaning could be written shorter: os.system('cls||clear')
+    @staticmethod
+    def create_and_kill_background_process() -> None:
         """
+        In order to hide the output of debugging information of the audio
+        player, we will transfer the playback/generation code of the audio
+        to a separate file and we will call this script in the background.
+        Why so? - because standard output redirection does not work due to
+        the specifics of ffmpeg it self.
+
+        The process itself is needed to play the WAV file or the generated
+        sound.
+        """
+        try:
+            sound_py = os.path.abspath(os.path.dirname(__file__)) + '/sound.py'
+            if not os.path.exists(sound_py):
+                raise FileExistsError
+
+            pid = subprocess.Popen(
+                [sys.executable, sound_py],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            ).pid
+
+            os.kill(pid, 0)
+        except FileExistsError:
+            print('File sound.py not fund')
+        except ProcessLookupError:
+            print('No such process')
+        except PermissionError:
+            print('Operation not permitted (i.e., process exists)')
+
+    def pomodoro(self, minutes: int) -> None:
+        """Run pomodoro"""
         self.reverse_timer(minutes * 60)
+        self.create_and_kill_background_process()
+
+        # Push-notifications on Linux desktop
         title = '⏰ Pomodoro: '
         info = f"{minutes} min TIME'S UP!"
-        mes = title + info + "\n"
-        if os.path.exists(PomodoroTimer.ALARM_FILENAME):
-            self.wav_sound()
-        else:
-            self.default_sound()
-
         if sys.platform in ('linux', 'osx'):
-            subprocess.call('clear', shell=True)
             subprocess.call(['notify-send', title, info])
-        elif sys.platform in ('nt', 'dos', 'ce'):
-            subprocess.call('cls', shell=True)
-            print(mes)
-        else:
-            print('\n', mes)
