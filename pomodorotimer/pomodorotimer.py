@@ -47,11 +47,11 @@ class PomodoroTimer:
         - Countdown
         - Clear string and show console cursor
         """
-        self.write_flush(f"\x1b[A{45*' '}\r\x1b[?25l")
+        self.write_flush(f"\x1b[A{55*' '}\r\x1b[?25l")
         for i in range(sec, 0, -1):
             self.write_flush(f'\r {self.animated_clock()}{self.lead_time(i)} ')
             time.sleep(1)
-        self.write_flush(f"\r{30*' '}\r\x1b[?25h")
+        self.write_flush(f"\r{35*' '}\r\x1b[?25h")
 
     @staticmethod
     def write_flush(string: str) -> None:
