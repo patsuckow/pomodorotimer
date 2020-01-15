@@ -23,6 +23,7 @@ the database only after the specified time has passed and not earlier.**
 the tool for which it was invented, namely, not to calculate the time of your 
 work and breaks in work, but to make you concentrate on continuous and 
 concentrated execution of works during one Pomodoro, i.e. within 25 minutes.**
+
 ---
 
 We call the program from any directory in the console and set the countdown 
@@ -78,6 +79,7 @@ Get statistics today:
 pomodoro --statistic=today
 ```
 We get something like this in the browser window:
+
 ![stat-2](https://user-images.githubusercontent.com/12321741/72270776-b9b4f700-3636-11ea-972b-e92d767beaad.jpg)
 
 All-Time Statistics:
