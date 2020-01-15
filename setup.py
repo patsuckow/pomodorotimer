@@ -24,6 +24,9 @@ if __name__ == "__main__":
         name='pomodorotimer',
         version=ver,
         url='https://github.com/patsuckow/pomodorotimer',
+        project_urls={
+            'Bug Tracker': 'https://github.com/patsuckow/pomodorotimer/issues',
+        },
         download_url=f'https://github.com/patsuckow/pomodorotimer/archive/{ver}.tar.gz',
         description='CLI Pomodoro Timer',
         long_description=long_description,
