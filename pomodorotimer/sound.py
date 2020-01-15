@@ -4,14 +4,9 @@ from pydub.playback import play
 
 
 class Sound:
-
-    # Why path to wav is '.local/tic-tic.wav' ? - since in setup.py with the
-    # option data_files=['tic-tic.wav'] we set that the file must be sent
-    # to .local/
-    ALARM_FILENAME = os.path.realpath('.local/tic-tic.wav')
-
     def __init__(self):
-        if os.path.exists(Sound.ALARM_FILENAME):
+        self.path = os.path.dirname(__file__) + '/tic-tic.wav'
+        if os.path.exists(self.path):
             self.wav_sound()
         else:
             self.default_sound()
@@ -24,10 +19,9 @@ class Sound:
         """
         play(generators.Sine(432).to_audio_segment(duration=864))
 
-    @staticmethod
-    def wav_sound() -> None:
+    def wav_sound(self) -> None:
         """Play wav file"""
-        play(AudioSegment.from_wav(Sound.ALARM_FILENAME))
+        play(AudioSegment.from_wav(self.path))
 
 
 if __name__ == "__main__":

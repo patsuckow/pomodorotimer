@@ -18,14 +18,14 @@ def find_requires():
 
 
 if __name__ == "__main__":
-    ver = '0.1.2'
+    ver = '0.2.0'
 
     setup(
         name='pomodorotimer',
         version=ver,
         url='https://github.com/patsuckow/pomodorotimer',
         download_url=f'https://github.com/patsuckow/pomodorotimer/archive/{ver}.tar.gz',
-        description='Console Pomodoro Timer',
+        description='CLI Pomodoro Timer',
         long_description=long_description,
         long_description_content_type="text/markdown",
         license='GNU General Public License v3 (GPLv3)',
@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
         keywords=[
             'pomodoro',
+            'tomato',
             'pomodorotimer',
             'pomodoro timer',
             'pomodoro technique',
@@ -46,6 +47,7 @@ if __name__ == "__main__":
             'eta',
             'freelance',
             'freelancing',
+            'CLI'
         ],
 
         classifiers=[
@@ -62,14 +64,11 @@ if __name__ == "__main__":
         # Specify an executable console file
         entry_points={
             'console_scripts': [
-                'pomodorotimer = pomodorotimer.pomodorotimer:PomodoroTimer',
                 'pomodoro = pomodorotimer.pomodorotimer:PomodoroTimer',
             ],
         },
 
         include_package_data=True,
-        data_files=['tic-tic.wav'],
-
         packages=find_packages(exclude=[
             # '*.tests', '*.tests.*', 'tests',
             # '*.img', '*.img.*', 'img',

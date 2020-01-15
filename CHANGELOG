@@ -7,7 +7,7 @@ Versioning: 'major.minor.micro' (PEP 440)
 Development version
 ===================
 
-Version 0.1.3
+Version 0.2.1
 -------------
 
 - Added ... ?
@@ -19,13 +19,22 @@ Version 0.1.3
 Current versions
 ================
 
+Version 0.2.0
+-------------
+
+- Added: Saving to a local SQLite3 database file and displaying statistics in a browser window
+- Updated: Almost all project files and README
+- Changed: Pomodoro Cycle progress bar colors changed
+- Fixed some bugs
+
+Older versions
+==============
+
 Version 0.1.2 (31.12.2019)
 --------------------------
 
 - Fixed a bug
 
-Older versions
-==============
 
 Version 0.1.1 (31.12.2019)
 --------------------------
