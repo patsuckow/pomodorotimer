@@ -78,7 +78,7 @@ class PomodoroTimer:
             '--statistic',
             type=str,
             default='',
-            help="provide an string: 'today', 'all', 'delete-today', "
+            help="provide a string: 'today', 'all', 'delete-today', "
                  "'delete-all' (default: '')"
         )
 
