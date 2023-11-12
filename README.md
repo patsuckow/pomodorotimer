@@ -3,11 +3,10 @@ Console Pomodoro timer with playing the melody of the signal or with the
 generation of an end time signal. Displays a push notification on Linux and 
 Mac OS X.
 
-### Help in the development of the project
-If you want to help in the development of the project or just to thank the 
-author, this can be done through PayPal:
+Help in the development of the project:
 
-https://www.paypal.me/patsuckow or [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%E2%98%95-orange)](https://www.buymeacoffee.com/patsuckow)
+If you want to help in the development of the project or just to thank the 
+author, this can be done through [PayPal](https://www.paypal.me/patsuckow) or [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-%E2%98%95-orange)](https://www.buymeacoffee.com/patsuckow)
 
 ----
 # Pomodoro Technique:
