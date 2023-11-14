@@ -5,13 +5,19 @@ import argparse
 import subprocess
 from collections import deque
 from .graph_statistic import graph
-from .statistics_db import today_entry, read_all_entry, read_today_entry, \
-                           delete_today_entry, delete_all_entry, close_db
+from .statistics_db import (
+    today_entry,
+    read_all_entry,
+    read_today_entry,
+    delete_today_entry,
+    delete_all_entry,
+    close_db,
+)
 
 try:
     assert sys.version_info >= (3, 6)
 except Exception:
-    raise SystemExit('Pomodoro Timer works with Python 3.6 or higher.')
+    raise SystemExit("Pomodoro Timer works with Python 3.6 or higher.")
 
 
 class PomodoroTimer:
@@ -19,35 +25,38 @@ class PomodoroTimer:
     Created by Alexey Patsukov (patsuckow@yandex.ru) 🇷🇺
     CLI Pomodoro Timer - https://github.com/patsuckow/pomodorotimer
     """
+
     # String for bar pomodoro counting
-    min_str = '|'
+    min_str = "|"
     # Clear up string
     UP_CLEAR_STR = f"\x1b[A{79*' '}\r"
 
     def __init__(self) -> None:
         # First, check if the argument was passed to get/remove statistics
         argument = self.arg()
-        if argument in ['today', 'all', 'delete-today', 'delete-all']:
-            if argument == 'today':
+        if argument in ["today", "all", "delete-today", "delete-all"]:
+            if argument == "today":
                 dates, work, relaxation = read_today_entry()
                 graph(dates, work, relaxation)
-            elif argument == 'all':
+            elif argument == "all":
                 dates, work, relaxation = read_all_entry()
                 graph(dates, work, relaxation)
-            elif argument == 'delete-today':
+            elif argument == "delete-today":
                 delete_today_entry()
-            elif argument == 'delete-all':
+            elif argument == "delete-all":
                 delete_all_entry()
             close_db()
             exit(0)
         else:
             # Clear console before setup Pomodoro timer
-            if sys.platform in ('linux', 'osx'):
-                subprocess.call('clear', shell=True)
-            elif sys.platform in ('nt', 'dos', 'ce'):
-                subprocess.call('cls', shell=True)
+            if sys.platform in ("linux", "osx"):
+                subprocess.call("clear", shell=True)
+            elif sys.platform in ("nt", "dos", "ce"):
+                subprocess.call("cls", shell=True)
 
-            self.stack_watch = deque(list('🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦'))
+            self.stack_watch = deque(
+                list("🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦")
+            )
             mess = "Input min: 25/5/15/30 for your Pomodoro, or 0 for exit: "
             mess_two = "\nPomodoro's timer work has been interrupted."
             try:
@@ -62,8 +71,8 @@ class PomodoroTimer:
                         self.pomodoro()
                     elif self.min == 0:
                         self.write_flush(PomodoroTimer.UP_CLEAR_STR)
-                        if PomodoroTimer.min_str != '|':
-                            print(PomodoroTimer.min_str + '|' + mess_two)
+                        if PomodoroTimer.min_str != "|":
+                            print(PomodoroTimer.min_str + "|" + mess_two)
                         exit(0)
             except KeyboardInterrupt:
                 print(mess_two)
@@ -75,11 +84,11 @@ class PomodoroTimer:
         """Get the value of the argument --statistic passed to the script"""
         parser = argparse.ArgumentParser()
         parser.add_argument(
-            '--statistic',
+            "--statistic",
             type=str,
-            default='',
+            default="",
             help="provide a string: 'today', 'all', 'delete-today', "
-                 "'delete-all' (default: '')"
+            "'delete-all' (default: '')",
         )
 
         return parser.parse_args().statistic
@@ -104,7 +113,7 @@ class PomodoroTimer:
         """Countdown"""
         self.write_flush("\n" + PomodoroTimer.UP_CLEAR_STR)
         for i in range(self.min * 60, 0, -1):
-            self.write_flush(f'\r{self.animated_clock()}{self.lead_time(i)} ')
+            self.write_flush(f"\r{self.animated_clock()}{self.lead_time(i)} ")
             time.sleep(1)
         self.write_flush(f"\r{35*' '}\r")
 
@@ -119,19 +128,19 @@ class PomodoroTimer:
         https://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes
         ('\033' same as '\x1b')
         """
-        sys.stdout.write('\x1b[?25l')
+        sys.stdout.write("\x1b[?25l")
 
     @staticmethod
     def show_console_cursor() -> None:
-        """Show console cursor: '\x1b[?25h' """
-        sys.stdout.write('\x1b[?25h')
+        """Show console cursor: '\x1b[?25h'"""
+        sys.stdout.write("\x1b[?25h")
 
     def lead_time(self, sec: int) -> str:
         """Elapsed Time Calculation"""
         minutes = int(sec // 60)
         seconds = round(sec % 60, 3)
         if seconds // 10 == 0:
-            seconds = '0' + str(seconds)
+            seconds = "0" + str(seconds)
         if self.min == 25:
             return f" Pomodoro timer: \x1b[31m\x1b[1m{minutes}:{seconds}\x1b[0m"
         elif self.min in [5, 15, 30]:
@@ -162,23 +171,23 @@ class PomodoroTimer:
         sound.
         """
         try:
-            sound_py = os.path.dirname(__file__) + '/sound.py'
+            sound_py = os.path.dirname(__file__) + "/sound.py"
             if not os.path.exists(sound_py):
                 raise FileExistsError
 
             pid = subprocess.Popen(
                 [sys.executable, sound_py],
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
+                stderr=subprocess.PIPE,
             ).pid
 
             os.kill(pid, 0)
         except FileExistsError:
-            print('File sound.py not fund\n')
+            print("File sound.py not fund\n")
         except ProcessLookupError:
-            print('No such process\n')
+            print("No such process\n")
         except PermissionError:
-            print('Operation not permitted (i.e., process exists)\n')
+            print("Operation not permitted (i.e., process exists)\n")
 
     def logging_statistics(self) -> None:
         """INSERT / UPDATE log statistic in DB
@@ -212,13 +221,13 @@ class PomodoroTimer:
         self.logging_statistics()
 
         # Push-notifications on Linux desktop
-        title = '⏰ Pomodoro: '
+        title = "⏰ Pomodoro: "
         info = f"{self.min} min TIME'S UP!"
-        if sys.platform in ('linux', 'osx'):
-            subprocess.call(['notify-send', title, info])
+        if sys.platform in ("linux", "osx"):
+            subprocess.call(["notify-send", title, info])
 
         if self.min in [15, 30]:
             time.sleep(4)
-            print('One Pomodoro cycle is over.\n')
+            print("One Pomodoro cycle is over.\n")
             self.show_console_cursor()
             exit(0)

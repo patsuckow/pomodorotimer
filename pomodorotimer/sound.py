@@ -5,7 +5,7 @@ from pydub.playback import play
 
 class Sound:
     def __init__(self):
-        self.path = os.path.dirname(__file__) + '/tic-tic.wav'
+        self.path = os.path.dirname(__file__) + "/tic-tic.wav"
         if os.path.exists(self.path):
             self.wav_sound()
         else:

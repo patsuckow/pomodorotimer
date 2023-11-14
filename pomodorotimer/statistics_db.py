@@ -120,7 +120,7 @@ def close_db():
 # Create a connection object.
 # If the database file is not found in the specified directory, then it will
 # be created.
-conn = sqlite3.connect(os.path.dirname(__file__) + '/statistics.db')
+conn = sqlite3.connect(os.path.dirname(__file__) + "/statistics.db")
 
 # According to the DB-API 2.0 specification, after creating a connection
 # object, you must create a cursor object. All further requests must be
@@ -130,7 +130,7 @@ conn = sqlite3.connect(os.path.dirname(__file__) + '/statistics.db')
 cursor = conn.cursor()
 
 # Today's date
-DATE = str(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d'))
+DATE = str(datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d"))
 
 # Create table statistic if not exists
 create_table_statistic()
