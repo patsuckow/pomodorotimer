@@ -18,7 +18,7 @@ def find_requires():
 
 
 if __name__ == "__main__":
-    ver = '0.2.0'
+    ver = '0.2.1'
 
     setup(
         name='pomodorotimer',
