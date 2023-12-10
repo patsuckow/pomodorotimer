@@ -2,7 +2,6 @@ import os
 import datetime
 import calendar
 import webbrowser
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -10,7 +9,7 @@ class PeriodPomodoros:
     def __init__(
         self, dates: list, work: list, relaxation: list, name_svg: str
     ) -> None:
-        # the width of the bars adn size figure img
+        # the width of the bars and size of the figure img
         if len(work) > 2:
             width = 0.4
             fig_size = (9.2, 7)
@@ -29,10 +28,10 @@ class PeriodPomodoros:
         else:
             days = [k + j for k, j in zip(name_periods, dates)]
 
-        x = np.arange(len(days))  # the label locations
+        x = range(len(days))  # the label locations
         fig, ax = plt.subplots(figsize=fig_size)
-        rects_work = ax.bar(x - width / 2, work, width, label="work")
-        rects_relaxation = ax.bar(x + width / 2, relaxation, width, label="relaxation")
+        rects_work = ax.bar([i - width / 2 for i in x], work, width, label="work")
+        rects_relaxation = ax.bar([i + width / 2 for i in x], relaxation, width, label="relaxation")
         ax.set_title(f"Statistics Pomodoro`s for the last {len(work)} days:")
         ax.set_xticks(x)
         ax.set_xticklabels(days)
@@ -70,13 +69,12 @@ class CountPomodorosTime:
         work = sum(work)
         relaxation = sum(relaxation)
 
-        ax = plt.subplots(figsize=(9.2, 4.5), subplot_kw=dict(aspect="equal"))[1]
-
-        wedges = ax.pie(
+        fig, ax = plt.subplots(figsize=(9.2, 4.5))
+        wedges, texts, autotexts = ax.pie(
             [work, relaxation],
             autopct=lambda pct: self.calc_pct(pct, [work, relaxation + 1]),
             textprops=dict(color="w"),
-        )[0]
+        )
 
         ax.legend(
             wedges,
@@ -93,7 +91,7 @@ class CountPomodorosTime:
 
     @staticmethod
     def calc_pct(pct: int, values: list) -> str:
-        return "{} min\n{:.2f}%".format(int(pct / 100 * np.sum(values)), pct)
+        return "{} min\n{:.2f}%".format(int(pct / 100 * sum(values)), pct)
 
 
 def graph(dates: list, work: list, relaxation: list) -> None:
