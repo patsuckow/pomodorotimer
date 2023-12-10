@@ -171,7 +171,7 @@ class PomodoroTimer:
         sound.
         """
         try:
-            sound_py = os.path.dirname(__file__) + "/sound.py"
+            sound_py = os.path.join(os.path.dirname(__file__), "sound.py")
             if not os.path.exists(sound_py):
                 raise FileExistsError
 
