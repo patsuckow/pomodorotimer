@@ -55,7 +55,7 @@ shell used, for example:
 
 #### From PyPI:
 
-    pip3 install pomodorotimer --user
+    pip install pomodorotimer
 
 #### From sources:
 
@@ -63,8 +63,8 @@ Alternatively you can install **pomodorotimer** from sources directory:
 
     git clone https://github.com/patsuckow/pomodorotimer
     cd pomodorotimer
-    pip3 install -r requirements.txt
-    pip3 install . --user
+    pip install -r requirements.txt
+    pip install .
     cd ..
     rm -rf pomodorotimer
 
@@ -102,8 +102,13 @@ pomodoro --statistic=delete-all
 ## Requirements:
 See in requirements.txt
 
-**pomodorotimer** works with ![version](https://user-images.githubusercontent.com/12321741/68495259-e298c480-0260-11ea-9d83-beab9b416562.png) or higher.
+**pomodorotimer** works with python 3.10.13 or higher.
 
+
+## How uninstall **pomodorotimer** 😭:
+```
+pip uninstall pomodorotimer
+```
 
 ## Licence:
 ![GNU GPL v 3 0](https://user-images.githubusercontent.com/12321741/67310082-c4636280-f505-11e9-83a7-d23e8037c54f.png)

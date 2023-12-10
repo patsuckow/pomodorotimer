@@ -7,7 +7,7 @@ Versioning: 'major.minor.micro' (PEP 440)
 Development version
 ===================
 
-Version 0.2.1
+Version 0.2.2
 -------------
 
 - Added ... ?
@@ -19,6 +19,18 @@ Version 0.2.1
 Current versions
 ================
 
+Version 0.2.2
+-------------
+
+- Updated: Almost all project files and README
+- Changed: Pomodoro will work with python 3.10.13 or higher. This is due to updates to the dependencies of connected libraries.
+- Fixed: 
+    - setup.py: The os module is removed. Added pathlib, which provides platform-independent operations over the paths. Fixed dependencies.
+    - requirements.txt - Fixed dependencies. Removed the now unused numpy library.
+
+Older versions
+==============
+
 Version 0.2.0
 -------------
 
@@ -26,9 +38,6 @@ Version 0.2.0
 - Updated: Almost all project files and README
 - Changed: Pomodoro Cycle progress bar colors changed
 - Fixed some bugs
-
-Older versions
-==============
 
 Version 0.1.2 (31.12.2019)
 --------------------------

@@ -55,6 +55,7 @@ if __name__ == "__main__":
             "Environment :: Console",
             "Operating System :: OS Independent",
             "Programming Language :: Python :: 3.10.13",
+            "Programming Language :: Python :: 3.11.7",
             "Programming Language :: Python :: 3.12.0",
             "Intended Audience :: Developers",
             "Topic :: Utilities",
