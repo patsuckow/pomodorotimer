@@ -15,9 +15,9 @@ from .statistics_db import (
 )
 
 try:
-    assert sys.version_info >= (3, 6)
+    assert sys.version_info >= (3, 10, 13)
 except Exception:
-    raise SystemExit("Pomodoro Timer works with Python 3.6 or higher.")
+    raise SystemExit("Pomodoro Timer works with Python 3.10.13 or higher.")
 
 
 class PomodoroTimer:
