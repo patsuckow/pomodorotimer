@@ -25,14 +25,14 @@ class PomodoroTimer:
     Created by Alexey Patsukov (patsuckow@yandex.ru) 🇷🇺
     CLI Pomodoro Timer - https://github.com/patsuckow/pomodorotimer
     """
-
-    # String for bar pomodoro counting
-    min_str = "|"
-    # Clear up string
-    UP_CLEAR_STR = f"\x1b[A{79*' '}\r"
-
     def __init__(self) -> None:
-        # First, check if the argument was passed to get/remove statistics
+        self.scale_progress = ""
+        self.clear_up_str = f"\x1b[A{79*' '}\r"
+        self.stack_watch = deque(
+            list("🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦")
+        )
+
+        # Check if the argument was passed to get/remove statistics
         argument = self.arg()
         if argument in ["today", "all", "delete-today", "delete-all"]:
             if argument == "today":
@@ -48,15 +48,8 @@ class PomodoroTimer:
             close_db()
             exit(0)
         else:
-            # Clear console before setup Pomodoro timer
-            if sys.platform in ("linux", "osx"):
-                subprocess.call("clear", shell=True)
-            elif sys.platform in ("nt", "dos", "ce"):
-                subprocess.call("cls", shell=True)
+            self.clear_console_before_pomodoro_setup()
 
-            self.stack_watch = deque(
-                list("🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦")
-            )
             mess = "Input min: 25/5/15/30 for your Pomodoro, or 0 for exit: "
             mess_two = "\nPomodoro's timer work has been interrupted."
             try:
@@ -64,20 +57,30 @@ class PomodoroTimer:
                     try:
                         self.min = int(input(mess))
                     except ValueError:
-                        self.write_flush(PomodoroTimer.UP_CLEAR_STR)
+                        self.write_flush(self.clear_up_str)
                         continue
-                    self.write_flush(PomodoroTimer.UP_CLEAR_STR)
+                    self.write_flush(self.clear_up_str)
                     if self.min in [5, 15, 25, 30]:
-                        self.pomodoro()
+                        self.run_pomodoro()
                     elif self.min == 0:
-                        self.write_flush(PomodoroTimer.UP_CLEAR_STR)
-                        if PomodoroTimer.min_str != "|":
-                            print(PomodoroTimer.min_str + "|" + mess_two)
+                        self.write_flush(self.clear_up_str)
+                        if self.scale_progress != "":
+                            print(self.scale_progress + mess_two)
                         exit(0)
             except KeyboardInterrupt:
+                # interrupt processing (Ctrl + C)
+                self.show_console_cursor()
                 print(mess_two)
+                exit(0)
 
         self.show_console_cursor()
+
+    @staticmethod
+    def clear_console_before_pomodoro_setup() -> None:
+        if sys.platform in ("linux", "darwin"):
+            subprocess.call("clear", shell=True)
+        elif sys.platform in ("win32", "cygwin"):
+            subprocess.call("cls", shell=True)
 
     @staticmethod
     def arg() -> str:
@@ -95,23 +98,26 @@ class PomodoroTimer:
 
     def bar_pomodoro(self) -> None:
         """
-        We highlight the timer scale for pomodoro in different colors,
-        depending on the set time.
+        Colorize the timer scale for pomodoro in a different color, depending on 
+        the set time.
         """
-        if self.min == 5:
-            PomodoroTimer.min_str += f"\x1b[42m\x1b[1m {self.min} \x1b[0m"
-        if self.min == 15:
-            PomodoroTimer.min_str += f"\x1b[42m\x1b[1m  {self.min}  \x1b[0m|"
-        elif self.min == 25:
-            PomodoroTimer.min_str += f"\x1b[41m\x1b[1m   {self.min}   \x1b[0m"
-        elif self.min == 30:
-            PomodoroTimer.min_str += f"\x1b[42m\x1b[1m    {self.min}    \x1b[0m|"
-        self.write_flush(PomodoroTimer.UP_CLEAR_STR)
-        print(PomodoroTimer.min_str)
+        match self.min:
+            case 5:
+                self.scale_progress += f"\x1b[42m\x1b[1m {self.min} \x1b[0m"
+            case 15:
+                self.scale_progress += f"\x1b[42m\x1b[1m  {self.min}  \x1b[0m"
+            case 25:
+                self.scale_progress += f"\x1b[41m\x1b[1m   {self.min}   \x1b[0m"
+            case 30:
+                self.scale_progress += f"\x1b[42m\x1b[1m    {self.min}    \x1b[0m"
+        
+        self.write_flush(self.clear_up_str)
+        print(self.scale_progress)
+
 
     def reverse_timer(self) -> None:
         """Countdown"""
-        self.write_flush("\n" + PomodoroTimer.UP_CLEAR_STR)
+        self.write_flush("\n" + self.clear_up_str)
         for i in range(self.min * 60, 0, -1):
             self.write_flush(f"\r{self.animated_clock()}{self.lead_time(i)} ")
             time.sleep(1)
@@ -212,8 +218,8 @@ class PomodoroTimer:
             work = self.min
         today_entry(work, relaxation)
 
-    def pomodoro(self) -> None:
-        """Run pomodoro"""
+    def run_pomodoro(self) -> None:
+        """Run pomodoro cicle"""
         self.hide_console_cursor()
         self.reverse_timer()
         self.create_and_kill_background_process()
