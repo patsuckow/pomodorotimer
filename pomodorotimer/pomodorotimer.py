@@ -218,6 +218,32 @@ class PomodoroTimer:
             work = self.min
         today_entry(work, relaxation)
 
+    def send_notification(self):
+        """
+        Push-notifications on Linux/macOS desktop
+        """
+        title = "⏰ Pomodoro: "
+        info = f"{self.min} min TIME'S UP!"
+
+        if sys.platform.startswith("linux"):
+            command = ["notify-send", title, info]
+        elif sys.platform == "darwin":  # macOS
+            command = ["osascript", "-e", f'display notification "{info}" with title "{title}"']
+        else:
+            return  # Do nothing if not on supported platform
+
+        subprocess.run(command, check=False)
+    
+    def check_one_pomodoro_cycle(self) -> None:
+        """
+        Checking the end of the pomodoro cycle
+        """
+        if self.min in [15, 30]:
+            time.sleep(4)
+            print("One Pomodoro cycle is over.\n")
+            self.show_console_cursor()
+            exit(0)
+
     def run_pomodoro(self) -> None:
         """Run pomodoro cicle"""
         self.hide_console_cursor()
@@ -225,15 +251,6 @@ class PomodoroTimer:
         self.create_and_kill_background_process()
         self.bar_pomodoro()
         self.logging_statistics()
-
-        # Push-notifications on Linux desktop
-        title = "⏰ Pomodoro: "
-        info = f"{self.min} min TIME'S UP!"
-        if sys.platform in ("linux", "osx"):
-            subprocess.call(["notify-send", title, info])
-
-        if self.min in [15, 30]:
-            time.sleep(4)
-            print("One Pomodoro cycle is over.\n")
-            self.show_console_cursor()
-            exit(0)
+        self.send_notification()
+        self.check_one_pomodoro_cycle()
+        self.show_console_cursor()
