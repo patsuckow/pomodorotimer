@@ -95,7 +95,7 @@ class CountPomodorosTime:
 
 
 def graph(dates: list, work: list, relaxation: list) -> None:
-    path = os.path.abspath(os.path.dirname(__file__))
+    path = os.path.dirname(__file__) + "/"
 
     # If there are old statistics image files, then delete them
     svg_1 = path + "stat-1.svg"
@@ -120,4 +120,4 @@ def graph(dates: list, work: list, relaxation: list) -> None:
             work=work, relaxation=relaxation, name_svg=path + "stat-2.svg"
         )
 
-    webbrowser.open("file://" + path + "/stats.html")
+    webbrowser.open("file://" + path + "stats.html")
