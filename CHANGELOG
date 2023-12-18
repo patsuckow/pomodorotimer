@@ -4,20 +4,35 @@ Changelog
 
 Versioning: 'major.minor.micro' (PEP 440)
 
-Development version
-===================
-
-Version 0.2.2
--------------
-
-- Added ... ?
-- Updated ... ?
-- Changed ... ?
-- Fixed some bugs ... ?
-
-
 Current versions
 ================
+
+Version 0.2.3
+-------------
+- Added:
+
+- Changed: 
+    - sound.py:
+        - Changed sound.py so that it does not play as a separate process, but connects as a user module to pomodorotimer.py.
+        For this, libraries were used as new dependencies: sunddevice, numpy and scipy.
+        - Renamed methods for more information: default_sound->play_default_sound, wav_sound->play_wav_sound.
+    - pomodorotimer.py:
+        - The global constant UP_CLEAR_STR has been replaced with the property self.clear_up_str.
+        - The global constant min_str has been replaced with the property self.scale_progress. And delete separator '|'.
+        - Different minor code changes
+
+- Fixed: 
+    - sound.py: 
+      - the correct path to the sound.py file
+      - Used os.path.abspath and os.path.join for more reliable operation with the paths to the sound file.
+    - pomodorotimer.py: 
+      - Proper processing of interruption by pressing Ctr+C.
+      - Cleaning the console, before entering the pomodoro timer, was transferred to a separate method.
+
+- Updated: Almost all project files and README
+
+Older versions
+==============
 
 Version 0.2.2
 -------------
@@ -27,9 +42,6 @@ Version 0.2.2
 - Fixed: 
     - setup.py: The os module is removed. Added pathlib, which provides platform-independent operations over the paths. Fixed dependencies.
     - requirements.txt - Fixed dependencies. Removed the now unused numpy library.
-
-Older versions
-==============
 
 Version 0.2.0
 -------------
