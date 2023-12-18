@@ -60,7 +60,7 @@ def update_entry(work: int, relaxation: int) -> None:
         conn.commit()
 
 
-def today_entry(work: int, relaxation: int) -> None:
+def save_today_entry(work: int, relaxation: int) -> None:
     """
     In this case, you cannot use:
     'INSERT OR REPLACE INTO User VALUES(?,?,?)'
