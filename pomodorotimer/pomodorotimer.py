@@ -134,7 +134,7 @@ class PomodoroTimer:
             #  of a string with a timer every second, t.e. this is the timer itself.
             # (For yourself: If you change the code, then for quick checking of 
             # performance, comment on this line and the code will be executed instantly)
-            # time.sleep(1)
+            time.sleep(1)
 
         self.write_flush(f"\r{35*' '}\r")
 
