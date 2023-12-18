@@ -7,6 +7,14 @@ Versioning: 'major.minor.micro' (PEP 440)
 Current versions
 ================
 
+Version 0.2.4
+-------------
+- Fixed: 
+  - graph_statistic.py - Urgent correct, by stupidity, the broken right path to svg statistics files
+
+Older versions
+==============
+
 Version 0.2.3
 -------------
 - Added:
@@ -30,9 +38,6 @@ Version 0.2.3
       - Cleaning the console, before entering the pomodoro timer, was transferred to a separate method.
 
 - Updated: Almost all project files and README
-
-Older versions
-==============
 
 Version 0.2.2
 -------------
