@@ -127,13 +127,15 @@ class PomodoroTimer:
     def run_reverse_timer(self) -> None:
         """Countdown"""
         self.write_flush("\n" + self.clear_up_str)
+        
         for i in range(self.min * 60, 0, -1):
             self.write_flush(f"\r{self.animated_clock()}{self.lead_time(i)} ")
             # The code execution delay (by 1 second) allows you to change the display
             #  of a string with a timer every second, t.e. this is the timer itself.
             # (For yourself: If you change the code, then for quick checking of 
             # performance, comment on this line and the code will be executed instantly)
-            time.sleep(1)
+            # time.sleep(1)
+
         self.write_flush(f"\r{35*' '}\r")
 
     @staticmethod
@@ -205,6 +207,7 @@ class PomodoroTimer:
             relaxation = self.min
         else:
             work = self.min
+
         save_today_entry(work, relaxation)
 
     def show_pop_up_notice(self):
