@@ -13,6 +13,8 @@ from .statistics_db import (
     delete_all_entry,
     close_db,
 )
+from .settings import Settings
+
 
 try:
     assert sys.version_info >= (3, 10, 13)
@@ -26,9 +28,12 @@ class PomodoroTimer:
     CLI Pomodoro Timer - https://github.com/patsuckow/pomodorotimer
     """
     def __init__(self) -> None:
-        self.mess = "Input min: 25/5/15/30 for your Pomodoro, or 0 for exit: "
-        self.mess_two = "\nPomodoro's timer work has been interrupted."
-        self.mess_three = "One Pomodoro cycle is over."
+        # Получаем настройки из ini файла
+        set = Settings('settings.ini')
+        self.mess_input = f"{set.get_opt('mess_input')} "
+        self.mess_stop = f"\n{set.get_opt('mess_stop')}"
+        self.mess_cycle_over = f"{set.get_opt('mess_cycle_over')}"
+        self.mess_times_up = f"{set.get_opt('mess_times_up')}"
         self.scale_progress = ""
         self.clear_up_str = f"\x1b[A{79*' '}\r"
         self.stack_watch = deque(
@@ -65,7 +70,7 @@ class PomodoroTimer:
             while True:
                 try:
                     self.show_console_cursor()
-                    self.min = int(input(self.mess))
+                    self.min = int(input(self.mess_input))
                 except ValueError:
                     self.write_flush(self.clear_up_str)
                     continue
@@ -77,11 +82,11 @@ class PomodoroTimer:
                 elif self.min == 0:
                     self.write_flush(self.clear_up_str)
                     if self.scale_progress != "":
-                        print(self.scale_progress + self.mess_two)
+                        print(self.scale_progress + self.mess_stop)
                     self.stop_pomodoro()
         except KeyboardInterrupt:
             # interrupt processing (Ctrl + C)
-            print(self.mess_two)
+            print(self.mess_stop)
             self.stop_pomodoro()
 
     @staticmethod
@@ -216,7 +221,7 @@ class PomodoroTimer:
         (Windows OS does not support the display of pop-up notifications.)
         """
         title = "⏰ Pomodoro: "
-        info = f"{self.min} min TIME'S UP!"
+        info = f"{self.min} {self.mess_times_up}"
 
         if sys.platform.startswith("linux"):
             command = ["notify-send", title, info]
@@ -236,7 +241,7 @@ class PomodoroTimer:
         Checking the end of the pomodoro cycle
         """
         if self.min in [15, 30]:
-            return print(self.mess_three), self.stop_pomodoro()
+            return print(self.mess_cycle_over), self.stop_pomodoro()
 
     def run_pomodoro(self) -> None:
         """Run pomodoro cicle"""

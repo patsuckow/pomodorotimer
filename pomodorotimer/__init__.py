@@ -9,3 +9,4 @@ from .statistics_db import (
     delete_all_entry,
     close_db,
 )
+from .settings import Settings
