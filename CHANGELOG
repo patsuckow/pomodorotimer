@@ -7,13 +7,20 @@ Versioning: 'major.minor.micro' (PEP 440)
 Current versions
 ================
 
+Version 0.2.5
+-------------
+- Added:
+  - settings.py and settings.ini
+    Added a settings reading class and the settings file itself, containing the locales en_EN and ru_RU. 
+    Settings will be taken from the file according to the locale of the user's PC.
+
+Older versions
+==============
+
 Version 0.2.4
 -------------
 - Fixed: 
   - graph_statistic.py - Urgent correct, by stupidity, the broken right path to svg statistics files
-
-Older versions
-==============
 
 Version 0.2.3
 -------------
