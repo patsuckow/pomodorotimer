@@ -28,7 +28,7 @@ class PomodoroTimer:
     CLI Pomodoro Timer - https://github.com/patsuckow/pomodorotimer
     """
     def __init__(self) -> None:
-        # Получаем настройки из ini файла
+        # Get settings from an ini file
         set = Settings('settings.ini')
         self.mess_input = f"{set.get_opt('mess_input')} "
         self.mess_stop = f"\n{set.get_opt('mess_stop')}"
