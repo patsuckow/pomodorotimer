@@ -10,7 +10,7 @@ Current versions
 Version 0.2.5
 -------------
 - Added:
-  - settings.py and settings.ini
+  - settings.py and config.ini
     Added a settings reading class and the settings file itself, containing the locales en_EN and ru_RU. 
     Settings will be taken from the file according to the locale of the user's PC.
 

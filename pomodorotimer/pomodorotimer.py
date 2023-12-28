@@ -29,16 +29,18 @@ class PomodoroTimer:
     """
     def __init__(self) -> None:
         # Get settings from an ini file
-        set = Settings('settings.ini')
-        self.mess_input = f"{set.get_opt('mess_input')} "
-        self.mess_stop = f"\n{set.get_opt('mess_stop')}"
-        self.mess_cycle_over = f"{set.get_opt('mess_cycle_over')}"
-        self.mess_times_up = f"{set.get_opt('mess_times_up')}"
+        setting = Settings()
+        self.mess_input = f"{setting.get_setting('mess_input')} "
+        self.mess_stop = setting.get_setting('mess_stop')
+        self.mess_cycle_over = setting.get_setting('mess_cycle_over')
+        self.mess_times_up = setting.get_setting('mess_times_up')
+
         self.scale_progress = ""
         self.clear_up_str = f"\x1b[A{79*' '}\r"
         self.stack_watch = deque(
             list("🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦")
         )
+
         self.process_argument()
         self.pomodoro_setup()
 
