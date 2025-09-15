@@ -1,5 +1,5 @@
 pydub==0.25.1
-setuptools==70.0.0
+setuptools==78.1.1
 matplotlib==3.8.2
 sounddevice==0.4.6
 numpy==1.26.2
